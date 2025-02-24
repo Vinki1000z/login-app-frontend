@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export default function AdminDashboard({ onLogout }) {
+  const backend_url="https://login-app-backend-arev.onrender.com";
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ export default function AdminDashboard({ onLogout }) {
     }
 
     // Only fetch users with role 'user', not admins
-    axios.get("http://localhost:5000/api/users?role=user", {
+    axios.get(`${backend_url}/api/users?role=user`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => {
@@ -31,7 +32,7 @@ export default function AdminDashboard({ onLogout }) {
 
   const deleteUser = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/users/${id}`, {
+      await axios.delete(`${backend_url}/api/users/${id}`, {
         headers: { Authorization: `Bearer ${sessionStorage.getItem("token")}` },
       });
       // Update the state to remove deleted user
@@ -44,7 +45,7 @@ export default function AdminDashboard({ onLogout }) {
 
   const toggleBlockUser = async (id) => {
     try {
-      const response = await axios.put(`http://localhost:5000/api/users/toggle-block/${id}`, {}, {
+      const response = await axios.put(`${backend_url}/api/users/toggle-block/${id}`, {}, {
         headers: { Authorization: `Bearer ${sessionStorage.getItem("token")}` },
       });
       

@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export default function AuthPage({ setToken, setRole }) {
+  const backend_url="https://login-app-backend-arev.onrender.com";
   const [form, setForm] = useState("login");
   const [user, setUser] = useState({ name: "", email: "", password: "", mobile: "", age: "", dob: "", work: "", role: "user" });
   const [message, setMessage] = useState("");
@@ -17,7 +18,7 @@ export default function AuthPage({ setToken, setRole }) {
     e.preventDefault();
     try {
       const url = form === "login" ? "/api/users/login" : "/api/users/register";
-      const { data } = await axios.post(`http://localhost:5000${url}`, user);
+      const { data } = await axios.post(`${backend_url}${url}`, user);
       console.log(data);
 
       if (form === "login") {

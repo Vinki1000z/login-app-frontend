@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export default function UserDashboard() {
+    const backend_url="https://login-app-backend-arev.onrender.com";
     const [user, setUser] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
@@ -16,7 +17,7 @@ export default function UserDashboard() {
         }
 
         setIsLoading(true);
-        axios.get("http://localhost:5000/api/users/me", {
+        axios.get(`${backend_url}/api/users/me`, {
             headers: { Authorization: `Bearer ${token}` },
         })
             .then((res) => {
