@@ -11,12 +11,6 @@ export default function UserDashboard() {
     useEffect(() => {
         const token = sessionStorage.getItem("token");
 
-        if (!token) {
-            navigate("/");
-            return;
-        }
-
-        setIsLoading(true);
         axios.get(`${backend_url}/api/users/me`, {
             headers: { Authorization: `Bearer ${token}` },
         })
@@ -29,19 +23,12 @@ export default function UserDashboard() {
                 // Don't navigate here, just show error state
                 setIsLoading(false);
             });
-    }, [navigate]);
+    }, []);
 
     const handleLogout = () => {
-        // First set a loading state to prevent UI flicker
-        setIsLoading(true);
-        
-        // Use setTimeout to ensure state updates have time to propagate
-        setTimeout(() => {
-            sessionStorage.removeItem("token");
-            sessionStorage.removeItem("role");
-            navigate("/");
-            // setIsLoading(false);
-        }, 10);
+        sessionStorage.removeItem("token");
+        sessionStorage.removeItem("role");
+        navigate("/");
     };
 
     if (isLoading) {

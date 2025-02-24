@@ -61,17 +61,13 @@ export default function AdminDashboard({ onLogout }) {
     }
   };
 
+
   const handleLogout = () => {
-    // Use the onLogout prop from parent component
-    if (onLogout) {
-      onLogout();
-    } else {
-      // Fallback if onLogout prop isn't provided
-      sessionStorage.removeItem("token");
-      sessionStorage.removeItem("role");
-      navigate("/");
-    }
-  };
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("role");
+    navigate("/");
+};
+
 
   if (isLoading) {
     return <div className="flex justify-center items-center h-screen">Loading...</div>;
